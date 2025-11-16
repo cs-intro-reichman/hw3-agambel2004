@@ -66,19 +66,18 @@ public class LoanCalc {
 		double low = loan / n;
     	double high = loan * 2;
     	double mid = 0;
-    	double balance;
+		  while ((high - low) > epsilon) {
+        mid = (low + high) / 2;
+        double balance = endBalance(loan, rate, n, mid);
+        iterationCounter++;
 
-    	while ((high - low) > epsilon) {
-        	mid = (low + high) / 2;
-        	balance = endBalance(loan, rate, n, mid);
-        	iterationCounter++;
-
-        	if (balance > 0) {
-            	low = mid;
-        	} else {
-            	high = mid;
-        	}
-    	}
-    	return mid;
- 	}
+        if (balance > 0) {
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+	iterationCounter = iterationCounter-1;
+    return mid;
+}
 }
